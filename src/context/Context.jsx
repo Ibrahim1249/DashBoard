@@ -17,16 +17,7 @@ function Context({children}) {
             {
               id: 102,
               name: 'Chart Widget 1',
-              type: 'chart',
-              chartType: 'bar',
-              data: {
-                labels: ['January', 'February', 'March'],
-                datasets: [{
-                  label: 'Sales',
-                  data: [12, 19, 3],
-                  backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                }],
-              },
+              content: 'This is a text widget 2',
             },
           ],
         },
@@ -45,11 +36,17 @@ function Context({children}) {
     const handleRemoveWidget = () => {
         // Implement remove logic here
     }
+    const handleAddCategory = (category) =>{
+        setCategories((prevCategories)=>{
+            return [...prevCategories , {id:prevCategories.length + 1 , widgets :[] , name:category}]
+        })
+    }
 
     const contextValue = {
         categories,
         handleAddWidget,
-        handleRemoveWidget
+        handleRemoveWidget,
+        handleAddCategory
     };
 
     return (

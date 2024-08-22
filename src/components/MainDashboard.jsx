@@ -26,10 +26,11 @@ import {
   } from "@/components/ui/select"
 import { Input } from "./ui/input";
 import { AppContext } from "../context/Context";
+import Category from "./Category";
 
 
 function MainDashboard() {
-  const { handleAddWidget , categories} = useContext(AppContext);
+  const { handleAddWidget , categories , handleAddCategory} = useContext(AppContext);
 
 
   const [isOpenWidget, setIsOpenWidget] = useState(false);
@@ -64,6 +65,13 @@ function MainDashboard() {
         setIsOpenWidget(false)
      }
   }
+  function addCategory(){
+      if(setCategoryData !== ""){
+         handleAddCategory(categoryData);
+         setCategoryData("");
+         setIsOpenCategory(false)
+      }
+  }
   return (
     <>
       <div className="w-3/4 mx-auto py-8 px-4">
@@ -71,19 +79,28 @@ function MainDashboard() {
           <h3 className="text-xl font-medium">CNAPP Dashboard</h3>
           <div className="flex gap-4">
             <Button
-              className="bg-white text-black border hover:bg-slate-100"
+              className="bg-white text-black border-2 hover:bg-slate-100"
               onClick={handleClickAddCategory}
             >
               <Plus className="mr-2" /> Add Category
             </Button>
             <Button
-              className="bg-white text-black border hover:bg-slate-100"
+              className="bg-white text-black border-2 hover:bg-slate-100"
               onClick={handleClickAddWidget}
             >
               <Plus className="mr-2" /> Add Widget
             </Button>
           </div>
         </div>
+        <div className="w-full border my-4 rounded-md flex flex-col ">
+        {categories.map(category => (
+          <Category
+            key={category.id}
+            category={category}
+            onRemoveWidget={(widgetId) => handleRemoveWidget(category.id, widgetId)}
+          />
+        ))}
+      </div>
         <Dialog
           open={isOpenWidget ? isOpenWidget : isOpenCategory}
           onOpenChange={isOpenCategory ? setIsOpenCategory : setIsOpenWidget}
@@ -112,9 +129,9 @@ function MainDashboard() {
                           <SelectValue placeholder="Category" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="1">CSPM Executive Dashboard</SelectItem>
-                          <SelectItem value="dark">Dark</SelectItem>
-                          <SelectItem value="system">System</SelectItem>
+                            {categories?.map((category)=>{
+                                return <SelectItem value={category?.id}>{category?.name}</SelectItem>
+                            })}
                         </SelectContent>
                       </Select>
                     </div>
@@ -154,7 +171,7 @@ function MainDashboard() {
                 </CardContent>
               )}
               <div className="flex justify-end pr-4">
-                <Button onClick={addWidget}>
+                <Button onClick={isOpenCategory ? addCategory : addWidget}>
                   {isOpenCategory ? "Add Category" : "Add Widget"}
                 </Button>
               </div>
