@@ -1,6 +1,6 @@
 import React, { createContext, useState , useMemo , useEffect} from 'react'
 
-export const AppContext = createContext();
+export const AppContext = React.createContext();
 
 function Context({children}) {
     

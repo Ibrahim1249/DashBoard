@@ -1,7 +1,7 @@
 
 import React from 'react'
 import Dashboard from './components/Dashboard'
-import Context from './context/context'
+import Context from './context/Context'
 import "./App.css"
 
 function App() {

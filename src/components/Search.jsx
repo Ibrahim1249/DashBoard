@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Input } from './ui/input'
-import { AppContext } from '@/context/Context';
+import { AppContext } from '../context/Context';
 function Search() {
   const { userInput , setUserInput} = useContext(AppContext);
   return (
