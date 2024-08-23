@@ -55,7 +55,8 @@ function MainDashboard() {
   }
 
   function addWidget() {
-     if(selectedCategory){
+     if(selectedCategory && (widgetData.name.trim() !== "" && widgetData.description.trim() !== "")){
+       
         handleAddWidget(selectedCategory , widgetData);
         setWidgetData({
             name:"",
@@ -65,7 +66,7 @@ function MainDashboard() {
      }
   }
   function addCategory(){
-      if(setCategoryData !== ""){
+      if(categoryData.trim() !== ""){
          handleAddCategory(categoryData);
          setCategoryData("");
          setIsOpenCategory(false)

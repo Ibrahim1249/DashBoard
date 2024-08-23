@@ -1,6 +1,10 @@
+
+
 # CNAPP Dashboard
 
 CNAPP Dashboard is a React-based web application that allows users to manage categories and widgets in a dynamic dashboard interface. It features a responsive design, local storage persistence, and real-time search functionality.
+
+The project is live and can be accessed here: [Click Here](https://dash-board-assignment.netlify.app)
 
 ## Tech Stack
 
