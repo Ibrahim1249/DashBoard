@@ -6,7 +6,7 @@ function Search() {
   return (
     <>
       <Input value={userInput} onChange={(e)=>{setUserInput(e.target.value)}} placeholder="search widget" 
-      className="w-3/4 mx-auto border-2 border-black"
+      className="xl:w-3/4 w-full mx-auto border-2 border-black"
       style={{ outline: 'none', boxShadow: 'none' }}/>
     </>
   )

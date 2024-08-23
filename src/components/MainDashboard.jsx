@@ -74,7 +74,7 @@ function MainDashboard() {
 
   return (
     <>
-      <div className="w-3/4 mx-auto py-8 px-4">
+      <div className="xl:w-3/4 w-full mx-auto py-8 px-4">
         <div className="flex justify-between">
           <h3 className="text-xl font-medium">CNAPP Dashboard</h3>
           <div className="flex gap-4">
@@ -130,7 +130,7 @@ function MainDashboard() {
                         </SelectTrigger>
                         <SelectContent>
                             {categories?.map((category)=>{
-                                return <SelectItem value={category?.id}>{category?.name}</SelectItem>
+                                return <SelectItem value={category?.id} className="font-medium">{category?.name}</SelectItem>
                             })}
                         </SelectContent>
                       </Select>
@@ -143,7 +143,9 @@ function MainDashboard() {
                         name="name"
                         value={widgetData.name}
                         onChange={handleWidgetData}
+                        required
                       />
+                      <span className="text-red-600">*required</span>
                     </div>
                   </CardContent>
                   <CardFooter>
@@ -153,6 +155,7 @@ function MainDashboard() {
                          name="description"
                         value={widgetData.description}
                         onChange={handleWidgetData}/>
+                        <span className="text-red-600">*required</span>
                     </div>
                   </CardFooter>
                 </>
@@ -166,8 +169,8 @@ function MainDashboard() {
                         setCategoryData(e.target.value);
                       }}
                       className="mt-2"
-                      required
                     />
+                    <span className="text-red-600">*required</span>
                   </div>
                 </CardContent>
               )}

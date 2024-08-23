@@ -8,7 +8,7 @@ function Dashboard() {
    
   return (
    <>
-     <div className="py-8 px-24">
+     <div className="py-8 xl:px-24 px-8">
         <h1 className="text-2xl text-center mb-4">Dashboard</h1>
          <Search/>
          <MainDashboard />
