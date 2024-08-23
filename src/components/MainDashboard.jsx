@@ -12,7 +12,6 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -27,11 +26,11 @@ import {
 import { Input } from "./ui/input";
 import { AppContext } from "../context/Context";
 import Category from "./Category";
+import { Textarea } from "@/components/ui/textarea"
 
 
 function MainDashboard() {
-  const { handleAddWidget , categories , handleAddCategory} = useContext(AppContext);
-
+  const { handleAddWidget , categories , handleAddCategory ,handleRemoveWidget , filteredCategories} = useContext(AppContext);
 
   const [isOpenWidget, setIsOpenWidget] = useState(false);
   const [isOpenCategory, setIsOpenCategory] = useState(false);
@@ -72,6 +71,7 @@ function MainDashboard() {
          setIsOpenCategory(false)
       }
   }
+
   return (
     <>
       <div className="w-3/4 mx-auto py-8 px-4">
@@ -93,7 +93,7 @@ function MainDashboard() {
           </div>
         </div>
         <div className="w-full border my-4 rounded-md flex flex-col ">
-        {categories.map(category => (
+        {filteredCategories.map(category => (
           <Category
             key={category.id}
             category={category}
@@ -137,8 +137,8 @@ function MainDashboard() {
                     </div>
                   </CardContent>
                   <CardContent>
-                    <div className="flex gap-4 items-center">
-                      <label className="text-nowrap">Widget Name</label>
+                    <div className="">
+                      <label className="text-nowrap mb-1 font-medium">Widget Name</label>
                       <Input
                         name="name"
                         value={widgetData.name}
@@ -147,25 +147,26 @@ function MainDashboard() {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <div className="flex gap-4 items-center w-full">
-                      <label className="text-nowrap">Widget Description</label>
-                      <Input
-                        name="description"
+                    <div className="w-full">
+                      <label className="text-nowrap mb-1 font-medium">Widget Description</label>
+                      <Textarea   
+                         name="description"
                         value={widgetData.description}
-                        onChange={handleWidgetData}
-                      />
+                        onChange={handleWidgetData}/>
                     </div>
                   </CardFooter>
                 </>
               ) : (
                 <CardContent>
-                  <div className="flex gap-4 items-center">
-                    <label className="text-nowrap">Category Name</label>
+                  <div>
+                    <label className="text-nowrap  font-medium">Category Name</label>
                     <Input
                       value={categoryData}
                       onChange={(e) => {
                         setCategoryData(e.target.value);
                       }}
+                      className="mt-2"
+                      required
                     />
                   </div>
                 </CardContent>

@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { Input } from './ui/input'
-
+import { AppContext } from '@/context/Context';
 function Search() {
-    const [userInput,setUserInput] = useState("")
+  const { userInput , setUserInput} = useContext(AppContext);
   return (
     <>
       <Input value={userInput} onChange={(e)=>{setUserInput(e.target.value)}} placeholder="search widget" 

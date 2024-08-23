@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState , useMemo } from 'react'
 
 export const AppContext = createContext();
 
@@ -22,6 +22,7 @@ function Context({children}) {
           ],
         },
     ]);
+    const [userInput,setUserInput] = useState("")
 
     const handleAddWidget = (category_id, widget) => {
         setCategories((prevCategories) =>
@@ -33,20 +34,53 @@ function Context({children}) {
         );
     }
 
-    const handleRemoveWidget = () => {
-        // Implement remove logic here
+    const handleRemoveWidget = (category_id, widget_id) => {
+        let copyCategories = [...categories];
+        let categoryIndex = copyCategories.findIndex((category) => category.id === category_id);
+        
+        if (categoryIndex !== -1) {
+            copyCategories[categoryIndex].widgets = copyCategories[categoryIndex].widgets.filter(
+                (widget) => widget.id !== widget_id
+            );
+            setCategories(copyCategories);
+        }
     }
     const handleAddCategory = (category) =>{
         setCategories((prevCategories)=>{
             return [...prevCategories , {id:prevCategories.length + 1 , widgets :[] , name:category}]
         })
     }
+    const filteredCategories = useMemo(() => {
+        if (!userInput.trim()) {
+          return categories;
+        }
+      
+        return categories.map(category => {
+          const categoryMatches = category.name.toLowerCase().includes(userInput.toLowerCase());
+          const filteredWidgets = category.widgets.filter(widget =>
+            widget.name.toLowerCase().includes(userInput.toLowerCase())
+          );
+      
+          if (categoryMatches || filteredWidgets.length > 0) {
+            return {
+              ...category,
+              widgets: categoryMatches ? category.widgets : filteredWidgets
+            };
+          }
+      
+          return null;
+        }).filter(Boolean);
+      }, [categories, userInput]);
 
     const contextValue = {
         categories,
         handleAddWidget,
         handleRemoveWidget,
-        handleAddCategory
+        handleAddCategory,
+        userInput,
+        setUserInput,
+        filteredCategories
+
     };
 
     return (
